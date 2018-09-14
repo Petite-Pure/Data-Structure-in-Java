@@ -16,8 +16,8 @@ public class bucketSort {
 				
 		int[][] cnt = new int[10][arr.length];
 		
-		for (int i = 0; i < arr.length; i++) {
-			
+		//把数组中的数按十位的大小分类存入桶中
+		for (int i = 0; i < arr.length; i++) {			
 			for (int j = 0; j < arr.length; j++) {
 				if (cnt[arr[i] / 10][j] == 0) {
 					cnt[arr[i] / 10][j] = arr[i];
