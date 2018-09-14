@@ -13,31 +13,64 @@ public class bucketSort {
 	
 	
 	public static void sort(int[] arr) {
-		
-		int min = arr[0];
-		int max = arr[0];
-		
-		for (int i = 0; i < arr.length; i++) {
-			if (max < arr[i]) {
-				max = arr[i];
-			}
-			else if (min > arr[i]) {
-				min = arr[i];
-			} 
-		}
-		
-		int[] cnt = new int[max - min + 1];
+				
+		int[][] cnt = new int[10][arr.length];
 		
 		for (int i = 0; i < arr.length; i++) {
-			cnt[arr[i] - min]++;
-		}
-		
-		for (int i = 0,j = 0; i < cnt.length; i++) {
-			while (cnt[i] != 0) {
-				arr[j++] = i + min;
-				cnt[i]--;
+			
+			for (int j = 0; j < arr.length; j++) {
+				if (cnt[arr[i] / 10][j] == 0) {
+					cnt[arr[i] / 10][j] = arr[i];
+					break;
+				}
 			}
 		}
+		
+		for (int i = 0, k = 0; i < 10; i++) {
+			
+			int count = 0;
+			
+			if (cnt[i][0] != 0) {
+				for (int j = 0; j < arr.length; j++) {
+					if (cnt[i][j] != 0) {
+						count++;
+					} else {
+						break;
+					}
+				}
+				
+				int[] temp = new int[count];
+				
+				for (int j = 0; j < temp.length; j++) {
+					if (cnt[i][j] != 0) {
+						temp[j] = cnt[i][j];
+					} else {
+						break;
+					}
+				}
+				
+				//利用插入排序把桶中的数字排好序
+				insertSort.sort(temp);
+				
+//				for (int j : temp) {
+//					System.out.println(j);
+//				}
+				
+				
+				for (int j = 0; j < temp.length; j++) {
+					arr[k++] = temp[j];
+				}
+			}
+			
+		}
+		
+//		for (int i = 0; i < 10; i++) {
+//			for (int j = 0; j < arr.length; j++) {
+//				System.out.println(cnt[i][j]);
+//			}
+//		}
+		
+		
 		
 	}
 
